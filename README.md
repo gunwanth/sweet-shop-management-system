@@ -207,3 +207,11 @@ npm start - runs backend and frontend simultaneously
 ✔ Search Implemented
 ✔ Authentication Working
 ✔ Tests Passing
+
+## Authors & Contributions
+
+- **M. Gunvanth**  
+  Full-stack development, system design, Prisma ORM integration, database schema, CORS configuration, authentication.
+
+- **ChatGPT (OpenAI)**  
+  AI-assisted development support for frontend & backend integration,architecture guidance, debugging, code refinement, and best practices.
