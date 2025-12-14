@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth global transitions */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* App background */
+body {
+  background: linear-gradient(to bottom right, #fdf2f8, #fff7ed);
+  color: #1f2937;
+}

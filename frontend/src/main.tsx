@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import AdminPanel from './pages/AdminPanel'
-import './styles.css'
+import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
