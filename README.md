@@ -214,4 +214,29 @@ npm start - runs backend and frontend simultaneously
   Full-stack development, system design, Prisma ORM integration, database schema, CORS configuration, authentication.
 
 - **ChatGPT (OpenAI)**  
-  AI-assisted development support for frontend & backend integration,architecture guidance, debugging, code refinement, and best practices.
+  AI-assisted development support for frontend & backend integration,architecture guidance, debugging and best practices.
+
+## 🤖 AI Usage Declaration
+
+= **This project was developed with the assistance of AI tools (ChatGPT by OpenAI). AI was used responsibly for:**
+
+Frontend UI structuring and visual design guidance
+
+Backend API architecture planning
+
+Debugging
+
+Emergent frame architecture
+
+CORS handling - (Cross-Origin Resource Sharing)
+
+## ScreenShots
+
+screenshots/
+  Screenshot 2025-12-14 123614.png
+  Screenshot 2025-12-14 123640.png
+  Screenshot 2025-12-14 123704.png
+  Screenshot 2025-12-14 123906.png
+  Screenshot 2025-12-14 124117.png
+  Screenshot 2025-12-14 124138.png
+  Screenshot 2025-12-14 131016.png
