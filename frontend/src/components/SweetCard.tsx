@@ -1,35 +1,49 @@
-export default function SweetCard({ sweet, onPurchase }: any) {
-  return (
-    <div className="bg-white/90 backdrop-blur rounded-2xl shadow-lg p-5
-                    hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 
-      <div className="flex justify-between items-start">
-        <h3 className="text-lg font-bold">{sweet.name}</h3>
-        <span className="text-xs px-3 py-1 rounded-full bg-pink-100 text-pink-600">
-          {sweet.category}
-        </span>
+export default function SweetCard({ sweet, onPurchase }: any) {
+  const [busy, setBusy] = useState(false)
+  const [done, setDone] = useState(false)
+
+  async function buy() {
+    if (sweet.quantity === 0) return
+    setBusy(true)
+    try {
+      await onPurchase(sweet.id)
+      setDone(true)
+      setTimeout(()=> setDone(false), 1500)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <motion.div whileHover={{ y: -6 }} className="rounded-2xl bg-white/90 dark:bg-slate-800 p-5 shadow hover:shadow-2xl border border-gray-100 dark:border-slate-700 transition">
+
+      <div className="flex items-center gap-4">
+        <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-brand-500 to-accent-300 flex items-center justify-center text-white font-bold text-lg">
+          {sweet.name[0]}
+        </div>
+        <div className="flex-1">
+          <div className="flex items-start justify-between">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">{sweet.name}</h3>
+            <span className="text-xs px-3 py-1 rounded-full bg-pinks-50 text-pinks-500 dark:bg-pinks-900 dark:text-pinks-300">{sweet.category}</span>
+          </div>
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-300">Stock: {sweet.quantity}</p>
+        </div>
       </div>
 
-      <p className="mt-4 text-2xl font-bold text-pink-600">
-        ₹{sweet.price}
-      </p>
+      <div className="mt-4 flex items-center gap-3">
+        <div className="flex-1">
+          <div className="text-2xl font-bold text-brand-600">₹{sweet.price}</div>
+        </div>
 
-      <p className="text-sm text-gray-500 mb-4">
-        Stock: {sweet.quantity}
-      </p>
-
-      <button
-        disabled={sweet.quantity === 0}
-        onClick={() => onPurchase(sweet.id)}
-        className={`w-full py-2 rounded-xl text-white font-semibold transition
-          ${
-            sweet.quantity === 0
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600'
-          }`}
-      >
-        {sweet.quantity === 0 ? 'Out of Stock' : 'Buy Sweet'}
-      </button>
-    </div>
+        <div className="w-36">
+          <motion.button whileTap={{ scale: 0.96 }} onClick={buy} disabled={busy || sweet.quantity === 0} className={`w-full py-2 rounded-xl text-white font-semibold transition ${sweet.quantity === 0 ? 'bg-gray-400 cursor-not-allowed' : 'btn-glow'}`}>
+            {busy ? 'Processing...' : done ? '✓ Added' : (sweet.quantity === 0 ? 'Out' : 'Buy')}
+          </motion.button>
+        </div>
+      </div>
+    </motion.div>
   )
 }

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import api from '../api/api'
+import Layout from '../components/Layout'
 
 /* =========================
    REUSABLE UI COMPONENTS
@@ -40,13 +42,9 @@ function ActionButton({
   }
 
   return (
-    <button
-      onClick={onClick}
-      className={`px-4 py-2 rounded-xl text-white font-medium
-                  transition transform hover:scale-105 ${colors[color]}`}
-    >
+    <motion.button whileTap={{ scale: 0.96 }} whileHover={{ y: -2 }} onClick={onClick} className={`px-4 py-2 rounded-xl text-white font-medium transition transform ${colors[color]} shadow-sm hover:shadow-md`}>
       {label}
-    </button>
+    </motion.button>
   )
 }
 
@@ -63,6 +61,7 @@ export default function AdminPanel() {
     quantity: '',
   })
   const [loading, setLoading] = useState(true)
+  const [addedName, setAddedName] = useState('')
 
   useEffect(() => {
     fetchAll()
@@ -77,12 +76,31 @@ export default function AdminPanel() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault()
-    await api.post('/sweets', {
+    const res = await api.post('/sweets', {
       name: form.name,
       category: form.category,
       price: parseFloat(form.price),
       quantity: parseInt(form.quantity, 10),
     })
+
+    const created = res?.data || { name: form.name, category: form.category }
+
+    // persist to localStorage for front-end "New Arrivals"
+    try {
+      const arr = JSON.parse(localStorage.getItem('newSweets') || '[]')
+      arr.unshift(created)
+      if (arr.length > 10) arr.splice(10)
+      localStorage.setItem('newSweets', JSON.stringify(arr))
+    } catch {}
+
+    // notify other parts of the app
+    try {
+      window.dispatchEvent(new CustomEvent('sweet:created', { detail: created }))
+    } catch {}
+
+    setAddedName(created.name)
+    setTimeout(() => setAddedName(''), 3000)
+
     setForm({ name: '', category: '', price: '', quantity: '' })
     fetchAll()
   }
@@ -101,17 +119,10 @@ export default function AdminPanel() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-10">
-
-      {/* HEADER FRAME */}
-      <div className="mb-12 p-8 rounded-3xl bg-gradient-to-br
-                      from-pink-50 via-rose-50 to-orange-50 shadow-lg">
-        <h2 className="text-4xl font-extrabold text-pink-600">
-          🍬 Sweet Shop – Admin Panel
-        </h2>
-        <p className="text-gray-600 mt-2">
-          Manage sweets, stock, and categories
-        </p>
+    <Layout title="Sweet Shop – Admin Panel">
+      <div className="mb-8 p-6 rounded-3xl bg-white dark:bg-slate-800 shadow-lg">
+        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100">🍬 Sweet Shop – Admin Panel</h2>
+        <p className="text-gray-600 dark:text-gray-300 mt-2">Manage sweets, stock, and categories</p>
       </div>
 
       {/* ADD SWEET SECTION */}
@@ -150,6 +161,7 @@ export default function AdminPanel() {
 
           <ActionButton label="Add Sweet" color="pink" />
         </form>
+        {addedName && <p className="text-sm text-green-500 mt-3">Added: {addedName}</p>}
       </SectionFrame>
 
       {/* LOADING */}
@@ -204,6 +216,6 @@ export default function AdminPanel() {
           ))}
         </div>
       </SectionFrame>
-    </div>
+    </Layout>
   )
 }

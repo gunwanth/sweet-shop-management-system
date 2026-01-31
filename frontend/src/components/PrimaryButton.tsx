@@ -1,12 +1,16 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
-export default function PrimaryButton({ children, ...props }: any) {
+export default function PrimaryButton({ children, className = '', variant = 'solid', ...props }: any) {
+  const glow = variant === 'glow'
   return (
-    <button
+    <motion.button
+      whileTap={{ scale: 0.96 }}
+      whileHover={{ translateY: -2 }}
       {...props}
-      className="px-4 py-2 rounded-lg bg-pink-500 text-white hover:bg-pink-600 active:scale-95 transition"
+      className={`inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-white font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-brand-200 transition-transform ${glow ? 'btn-glow' : 'bg-brand-600 hover:brightness-95'} ${className}`}
     >
       {children}
-    </button>
+    </motion.button>
   )
 }
