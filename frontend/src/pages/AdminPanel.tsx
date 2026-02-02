@@ -120,7 +120,8 @@ export default function AdminPanel() {
 
   return (
     <Layout title="Sweet Shop – Admin Panel">
-      <div className="mb-8 p-6 rounded-3xl bg-white dark:bg-slate-800 shadow-lg">
+      <div className="mb-8 p-6 rounded-3xl bg-gradient-to-br from-purple-50 to-pink-50 shadow-lg relative overflow-hidden fade-in">
+        <div className="absolute inset-0 pattern-bg opacity-10 pointer-events-none"></div>
         <h2 className="text-3xl font-extrabold text-gray-900 dark:text-gray-100">🍬 Sweet Shop – Admin Panel</h2>
         <p className="text-gray-600 dark:text-gray-300 mt-2">Manage sweets, stock, and categories</p>
       </div>

@@ -20,9 +20,11 @@ export default function Login(){
     }
   }
   return (
-    <div className="card">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-1">Welcome back</h2>
-      <p className="text-sm text-gray-500 mb-6">Sign in to continue to Sweet Shop</p>
+    <div className="card rounded-2xl p-6">
+      <div className="mb-4">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-1">Welcome back</h2>
+        <p className="text-sm text-gray-500 mb-6">Sign in to continue to Sweet Shop</p>
+      </div>
 
       <form onSubmit={submit} aria-label="Login form">
         <FormField label="Email" id="email" type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@company.com" autoComplete="email" />
