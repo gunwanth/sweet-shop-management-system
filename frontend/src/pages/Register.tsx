@@ -20,9 +20,11 @@ export default function Register(){
     }
   }
   return (
-    <div className="card">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-1">Create account</h2>
-      <p className="text-sm text-gray-500 mb-6">Register a new account to manage sweets and orders</p>
+    <div className="card rounded-2xl p-6">
+      <div className="mb-4">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-1">Create account</h2>
+        <p className="text-sm text-gray-500 mb-6">Register a new account to manage sweets and orders</p>
+      </div>
 
       <form onSubmit={submit} aria-label="Register form">
         <FormField label="Name" id="name" value={name} onChange={e=>setName(e.target.value)} placeholder="Your full name" autoComplete="name" />
