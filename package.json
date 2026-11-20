@@ -5,10 +5,10 @@
   "scripts": {
     "backend": "ts-node-dev --respawn --transpile-only src/server.ts",
     "frontend": "npm run dev --prefix frontend",
-    "dev": "node init && concurrently \"npm run backend\" \"npm run frontend\"",
-    "dev:all": "node init && npm run dev",
-    "build": "node init && tsc",
-    "start": "node init && npm run dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "dev:all": "npm run dev",
+    "build": "tsc",
+    "start": "npm run dev",
     "test": "jest --passWithNoTests --coverage",
     "prisma:migrate": "prisma migrate dev --name init",
     "prisma:generate": "prisma generate"
